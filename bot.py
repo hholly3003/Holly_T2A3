@@ -12,6 +12,7 @@ class TelegramChatbot:
     def read_token_from_config_file(config):
         parser = configparser.ConfigParser()
         parser.read(config)
+        return parser.get("creds","token")
     
     #getting all updates or messages that is sent to the bot
     def get_updates(self, offset = None):
