@@ -30,5 +30,5 @@ class TelegramChatbot:
         url = self.base + f"sendMessage?chat_id={chat_id}&text={message}"
         # Only if there is message to send, it will sends a post request
         if message is not None:
-            response = requests.post(url)
+            requests.post(url)
 
