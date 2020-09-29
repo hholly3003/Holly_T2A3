@@ -1,6 +1,8 @@
 import requests
 import json
 import configparser
+import os
+from datetime import datetime
 
 class TelegramChatbot:
     def __init__(self,config):
@@ -32,3 +34,24 @@ class TelegramChatbot:
         if message is not None:
             requests.post(url)
 
+    def print_input(self, data):
+        print("[<<<] Message Received %s" % datetime.fromtimestamp(data["message"]["date"]).strftime("%d-%m-%Y %H:%M:%S"))
+        
+        # Obtaining the sender details
+        first_name = data["message"]["from"].get("first_name", "")
+        last_name = data["message"]["from"].get("last_name", "")
+        
+        #Check if the message is a text or photo
+        try:
+            content = data["message"]["text"]
+            print(f"\tText: {content}")
+        except:
+           filesize = data["message"]["photo"][0].get("file_size", "")
+            print("\tThe message received is a file")
+            print(f"\tFile Size: {filesize} bytes")
+
+        print(f"\tFrom: {first_name} {last_name}")
+        print("-" * os.get_terminal_size().columns)
+
+
+        
