@@ -34,6 +34,7 @@ class TelegramChatbot:
         if message is not None:
             requests.post(url)
 
+    # Print all incoming message
     def print_input(self, data):
         print("[<<<] Message Received %s" % datetime.fromtimestamp(data["message"]["date"]).strftime("%d-%m-%Y %H:%M:%S"))
         
@@ -52,6 +53,16 @@ class TelegramChatbot:
 
         print(f"\tFrom: {first_name} {last_name}")
         print("-" * os.get_terminal_size().columns)
+    
+    #get the file and download it when message is not a text
+    def get_file(self, file_id):
+        file_details = self.base + f"getFile?file_id={file_id}"
+        file_details = file_details.get("result", "")
+        print(file_details)
+        try:
+            file_path = file_details["file_path"]
+        except:
+            print("Could not get the file path")
 
-
-        
+        # url = f"https://api.telegram.org/file/bot{self.token}/{file_path}"
+        # return requests.get(url)

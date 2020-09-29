@@ -8,7 +8,7 @@ def bot_response(message):
         reply = f"Bot : {message}"
     return reply
 
-update_id = None
+update_id = 9999999999
 print("Bot is running ...")
 
 while True:    
@@ -25,6 +25,11 @@ while True:
                 message = item["message"]["text"]
             except:
                 message = None
+                file_id = item["message"]["photo"][0].get("file_id", "")
+                print(file_id)
+                print("Trying to download")
+                # chatbot.get_file(file_id)
+                print("Finish download")
             sender = item["message"]["from"]["id"]
             reply = bot_response(message)
             chatbot.send_message(reply, sender)
