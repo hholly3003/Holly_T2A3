@@ -46,7 +46,7 @@ class TelegramChatbot:
             content = data["message"]["text"]
             print(f"\tText: {content}")
         except:
-           filesize = data["message"]["photo"][0].get("file_size", "")
+            filesize = data["message"]["photo"][0].get("file_size", "")
             print("\tThe message received is a file")
             print(f"\tFile Size: {filesize} bytes")
 
