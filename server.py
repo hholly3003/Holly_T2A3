@@ -29,3 +29,4 @@ while True:
             except:
                 file_id = item["message"]["photo"][0].get("file_id", "")
                 file_details = chatbot.get_file_details(file_id)
+                file_path = file_details.get("file_path", "")
