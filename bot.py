@@ -24,7 +24,26 @@ class TelegramChatbot:
         if offset:
             url = url + f"&offset={offset + 1}"
         response = requests.get(url)
-        return json.loads(response.content)
+        json_response = json.loads(response.content)
+        parameter_list = []
+
+        for update in json_response["result"]:
+            update_id = update["update_id"]
+            sender = update["message"]["from"]["id"]    #Sender / Chat ID
+            first_name = update["message"]["from"].get("first_name", "")
+            last_name = update["message"]["from"].get("last_name", "")
+            date = update["message"]["date"]
+            file_id = None
+            try:
+                text = update["message"]["text"]
+            except:
+                text = None
+                file_id = update["message"]["photo"][0].get("file_id", "")
+            
+            parameters = (sender, first_name, last_name, text, file_id, update_id, date)
+            parameter_list.append(parameters)
+        return parameter_list
+
     
     #get the file info
     def get_file_details(self, file_id):
