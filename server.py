@@ -5,44 +5,28 @@ import os
 def bot_response(message):
     reply = None
     if message is not None:
-        reply = f"Bot : {message}"
+        reply = f"I have stored message : '{message}' into log file"
     return reply
 
 update_id = None
 print("Bot is running ...")
-
 while True:    
     # Instantiate the telegramchatbot
     chatbot = bot.TelegramChatbot("config.cfg")
     # Check for any update or input given to the bots
     updates = chatbot.get_updates(offset = update_id)
-    print(updates)
     updates = updates[0]
-
     if updates:
+        
         update_id = updates[5]
         print(update_id)
         if updates[3] != None:
             reply = bot_response(updates[3])
             chatbot.send_message(reply, updates[0])
         if updates[4] != None:
-            
-    
-    # if updates:
-    #     for item in updates:
-    #         print(item)
-    #         update_id = item["update_id"]
-    #         chatbot.print_input(item)
-    #         sender = item["message"]["from"]["id"]
-    #         try:
-    #             message = item["message"]["text"]
-    #             reply = bot_response(message)
-    #             chatbot.send_message(reply, sender)
-    #         except:
-    #             file_id = item["message"]["photo"][0].get("file_id", "")
-    #             file_details = chatbot.get_file_details(file_id)
-    #             file_path = file_details.get("file_path", "")
-    #             photo = chatbot.download_photo(file_path)
-    #             if isinstance(photo,str):
-    #                 chatbot.send_message(photo,sender)
+            file_details = chatbot.get_file_details(updates[4])
+            file_path = file_details.get("file_path", "")
+            file_name = file_path.split("/")[1]
+            download_status = chatbot.download_photo(file_path, file_name)
+            chatbot.send_message(download_status,updates[0])
                 

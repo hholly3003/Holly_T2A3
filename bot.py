@@ -44,7 +44,6 @@ class TelegramChatbot:
             parameter_list.append(parameters)
         return parameter_list
 
-    
     #get the file info
     def get_file_details(self, file_id):
         url = self.base + f"getFile?file_id={file_id}"
@@ -52,13 +51,13 @@ class TelegramChatbot:
         json_files_details =  json.loads(file_details.content)
         return json_files_details.get("result")
     
-    def download_photo(self, file_path):
+    def download_photo(self, file_path, file_name):
         url = f"https://api.telegram.org/file/bot{self.token}/{file_path}"
         photo = requests.get(url)
         
         if photo.status_code == 200:
             try:
-                with open("photos/image.jpg", "wb") as image:
+                with open(f"photos/{file_name}", "wb") as image:
                     image.write(photo.content)
                 return "File is downloaded successfully"
             except FileNotFoundError:
