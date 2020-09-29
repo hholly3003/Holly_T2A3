@@ -33,13 +33,18 @@ class TelegramChatbot:
         json_files_details =  json.loads(file_details.content)
         return json_files_details.get("result")
     
-    def download_file(self, file_path):
+    def download_photo(self, file_path):
         url = f"https://api.telegram.org/file/bot{self.token}/{file_path}"
         print(url)
-
-        # url = f"https://api.telegram.org/file/bot{self.token}/{file_path}"
-        # return requests.get(url) 
-
+        photo = requests.get(url)
+        
+        if photo.status_code == 200:
+            try:
+                with open("photos/image.jpg", "wb") as image:
+                    image.write(photo.content)
+            except FileNotFoundError:
+                error = "Download Fail - folder photos is not exist. Please create one"
+                return error
     
     #Sending message or response from bot to the specified user
     def send_message(self, message, chat_id):

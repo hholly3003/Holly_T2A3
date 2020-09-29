@@ -8,7 +8,7 @@ def bot_response(message):
         reply = f"Bot : {message}"
     return reply
 
-update_id = 9999999999
+update_id = None
 print("Bot is running ...")
 
 while True:    
@@ -19,14 +19,19 @@ while True:
     updates = updates["result"]
     if updates:
         for item in updates:
+            print(item)
             update_id = item["update_id"]
             chatbot.print_input(item)
+            sender = item["message"]["from"]["id"]
             try:
                 message = item["message"]["text"]
-                sender = item["message"]["from"]["id"]
                 reply = bot_response(message)
                 chatbot.send_message(reply, sender)
             except:
                 file_id = item["message"]["photo"][0].get("file_id", "")
                 file_details = chatbot.get_file_details(file_id)
                 file_path = file_details.get("file_path", "")
+                photo = chatbot.download_photo(file_path)
+                if isinstance(photo,str):
+                    chatbot.send_message(photo,sender)
+                
