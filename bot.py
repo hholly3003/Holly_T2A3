@@ -54,13 +54,13 @@ class TelegramChatbot:
     
     def download_photo(self, file_path):
         url = f"https://api.telegram.org/file/bot{self.token}/{file_path}"
-        print(url)
         photo = requests.get(url)
         
         if photo.status_code == 200:
             try:
                 with open("photos/image.jpg", "wb") as image:
                     image.write(photo.content)
+                return "File is downloaded successfully"
             except FileNotFoundError:
                 error = "Download Fail - folder photos is not exist. Please create one"
                 return error
