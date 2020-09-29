@@ -26,6 +26,21 @@ class TelegramChatbot:
         response = requests.get(url)
         return json.loads(response.content)
     
+    #get the file info
+    def get_file_details(self, file_id):
+        url = self.base + f"getFile?file_id={file_id}"
+        file_details = requests.get(url)
+        json_files_details =  json.loads(file_details.content)
+        return json_files_details.get("result")
+    
+    def download_file(self, file_path):
+        url = f"https://api.telegram.org/file/bot{self.token}/{file_path}"
+        print(url)
+
+        # url = f"https://api.telegram.org/file/bot{self.token}/{file_path}"
+        # return requests.get(url) 
+
+    
     #Sending message or response from bot to the specified user
     def send_message(self, message, chat_id):
         #use the sendMessage method and specify the reciever and text to send
@@ -54,15 +69,4 @@ class TelegramChatbot:
         print(f"\tFrom: {first_name} {last_name}")
         print("-" * os.get_terminal_size().columns)
     
-    #get the file and download it when message is not a text
-    def get_file(self, file_id):
-        file_details = self.base + f"getFile?file_id={file_id}"
-        file_details = file_details.get("result", "")
-        print(file_details)
-        try:
-            file_path = file_details["file_path"]
-        except:
-            print("Could not get the file path")
-
-        # url = f"https://api.telegram.org/file/bot{self.token}/{file_path}"
-        # return requests.get(url)
+    

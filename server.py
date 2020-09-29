@@ -23,13 +23,9 @@ while True:
             chatbot.print_input(item)
             try:
                 message = item["message"]["text"]
+                sender = item["message"]["from"]["id"]
+                reply = bot_response(message)
+                chatbot.send_message(reply, sender)
             except:
-                message = None
                 file_id = item["message"]["photo"][0].get("file_id", "")
-                print(file_id)
-                print("Trying to download")
-                # chatbot.get_file(file_id)
-                print("Finish download")
-            sender = item["message"]["from"]["id"]
-            reply = bot_response(message)
-            chatbot.send_message(reply, sender)
+                file_details = chatbot.get_file_details(file_id)
