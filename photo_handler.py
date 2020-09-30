@@ -4,7 +4,8 @@ import os
 
 # check file if it is a photo
 def check_photo(file_details):
-    if "photo" in file_details:
+    print("Checking photo")
+    if file_details.get("file_size") <= 20000000:
         return True
     return False
 
@@ -22,7 +23,9 @@ def download_photo(url, file_name):
                     with open(f"photos/{file_name}", "wb") as image:
                         image.write(photo.content)
                     return "File is downloaded successfully"
+                else:
+                    return "File is already existed in the photos folder"
             except Exception as error:
                 return error
         else:
-            print("Download Fail - folder photos is not exist. Please create one")
+            return "Download Fail - folder photos is not exist. Please create one"
