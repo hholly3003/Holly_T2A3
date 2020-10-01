@@ -17,22 +17,26 @@ class TestTelegramChatbotClass(unittest.TestCase):
     def test_get_updates(self):
         result = self.bot.get_updates()
         self.assertEqual(result.status_code, 200, msg=f"Status code was {result.status_code} not 200. ")
-        
-        result = self.bot.get_updates()
-        self.assertTrue(result.json()['ok'], True)
     
     def test_get_content(self):
         data = self.bot.get_updates()
-        result = self.bot.get_content(json.loads(data.content))
-        print(result)
-        self.assertIsNotNone(result[0],msg = f"The response is an empty list")
+        content = self.bot.get_content(json.loads(data.content))
+        self.assertTrue(isinstance(content, list),msg = "data is not type of List")
+        self.assertEqual(len(content[0]),8, msg=f"There are only {len(content[0])} elements, It should contain 8 elements")
+        self.assertIsNotNone(content[0],msg = f"The response is an empty list")
     
     def test_get_file_details(self):
-        pass
+        data = self.bot.get_updates()
+        file_id = self.bot.get_content(json.loads(data.content))[0][4]
+        result = self.bot.get_file_details(file_id)
+        self.assertTrue(isinstance(result, dict),msg = "result is not in dictionary")
 
     def test_send_message(self):
-        pass
-
-    def test_display_incoming_message(self):
-        pass
+        message = "Hello there"
+        data = self.bot.get_updates()
+        content = self.bot.get_content(json.loads(data.content))
+        chat_id = content[0][0]
+        self.bot.send_message(message, chat_id)
         
+        self.assertTrue(isinstance(message, str), msg= f"The message is a {type(message)}, It should be a str")
+        self.assertTrue(isinstance(chat_id, int), msg= f"The chat id is a {type(chat_id)}, It should be an int")

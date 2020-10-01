@@ -49,14 +49,14 @@ class TelegramChatbot:
         return parameter_list
 
     #get the file info
-    def get_file_details(self, file_id):
+    def get_file_details(self, file_id) -> dict:
         url = self.base + f"getFile?file_id={file_id}"
         file_details = requests.get(url)
         json_files_details =  json.loads(file_details.content)
         return json_files_details.get("result")
         
     #Sending message or response from bot to the specified user
-    def send_message(self, message, chat_id):
+    def send_message(self, message : str, chat_id: int) -> None:
         #use the sendMessage method and specify the reciever and text to send
         url = self.base + f"sendMessage?chat_id={chat_id}&text={message}"
         # Only if there is message to send, it will sends a post request
