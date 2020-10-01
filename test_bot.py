@@ -2,7 +2,7 @@ import unittest
 from bot import TelegramChatbot
 import json
 
-class TestBotClass(unittest.TestCase):
+class TestTelegramChatbotClass(unittest.TestCase):
     def setUp(self):
         self.bot = TelegramChatbot("config.cfg")
     
