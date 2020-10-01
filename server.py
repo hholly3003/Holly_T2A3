@@ -1,4 +1,5 @@
 import bot
+from photo_handler import check_photo, get_photo_details, download_photo
 import os
 
 # bot replying to the message 
@@ -56,6 +57,6 @@ while True:
             file_details = chatbot.get_file_details(updates[4])
             file_path = file_details.get("file_path", "")
             file_name = file_path.split("/")[1]
-            download_status = chatbot.download_photo(file_path, file_name)
-            chatbot.send_message(download_status,updates[0])
+            # download_status = chatbot.download_photo(file_path, file_name)
+            # chatbot.send_message(download_status,updates[0])
                 

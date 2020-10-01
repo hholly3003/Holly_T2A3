@@ -50,20 +50,7 @@ class TelegramChatbot:
         file_details = requests.get(url)
         json_files_details =  json.loads(file_details.content)
         return json_files_details.get("result")
-    
-    def download_photo(self, file_path, file_name):
-        url = f"https://api.telegram.org/file/bot{self.token}/{file_path}"
-        photo = requests.get(url)
         
-        if photo.status_code == 200:
-            try:
-                with open(f"photos/{file_name}", "wb") as image:
-                    image.write(photo.content)
-                return "File is downloaded successfully"
-            except FileNotFoundError:
-                error = "Download Fail - folder photos is not exist. Please create one"
-                return error
-    
     #Sending message or response from bot to the specified user
     def send_message(self, message, chat_id):
         #use the sendMessage method and specify the reciever and text to send
@@ -73,21 +60,16 @@ class TelegramChatbot:
             requests.post(url)
 
     # Print all incoming message
-    def print_input(self, data):
-        print("[<<<] Message Received %s" % datetime.fromtimestamp(data["message"]["date"]).strftime("%d-%m-%Y %H:%M:%S"))
-        
-        # Obtaining the sender details
-        first_name = data["message"]["from"].get("first_name", "")
-        last_name = data["message"]["from"].get("last_name", "")
+    def display_incoming_message(self, date, first_name, last_name, text, file_size):
+        print("[<<<] Message Received %s" % datetime.fromtimestamp(date).strftime("%d-%m-%Y %H:%M:%S"))
         
         #Check if the message is a text or photo
-        try:
-            content = data["message"]["text"]
+        if file_size == None:
+            content = text
             print(f"\tText: {content}")
-        except:
-            filesize = data["message"]["photo"][0].get("file_size", "")
+        else:
             print("\tThe message received is a file")
-            print(f"\tFile Size: {filesize} bytes")
+            print(f"\tFile Size: {file_size} bytes")
 
         print(f"\tFrom: {first_name} {last_name}")
         print("-" * os.get_terminal_size().columns)
