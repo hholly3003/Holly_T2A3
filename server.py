@@ -1,6 +1,7 @@
 import bot
 from photo_handler import check_photo, get_photo_details, download_photo
 import os
+import json
 
 
 EXIT_MODE = False
@@ -15,7 +16,9 @@ def bot_response(message):
     return reply
 
 def check_updates(update_id):
-    parameters_list = chatbot.get_updates(offset = update_id)
+    response =  chatbot.get_updates(offset = update_id)
+    json_file = json.loads(response.content)
+    parameters_list = chatbot.get_content(json_file)
 
     if EXIT_MODE:
         return 1
@@ -25,7 +28,7 @@ def check_updates(update_id):
         update_id = parameter[5]
         run_command(*parameter)
         print("This is my update")
-        return update_id 
+        return update_id
 
 def run_command(sender, first_name, last_name, text, file_id, update_id, file_size, date):
     global EXIT_MODE
@@ -45,7 +48,6 @@ def run_command(sender, first_name, last_name, text, file_id, update_id, file_si
         # Check photo's file size is not more than 20MB
         if check_photo(file_details):
             file_path, file_name = get_photo_details(file_details)
-            # token = chatbot.read_token_from_config_file("config.cfg")
             photo_url = f"https://api.telegram.org/file/bot{chatbot.token}/{file_path}"          
             download_status = download_photo(photo_url,file_name)
             chatbot.send_message(download_status, sender)
