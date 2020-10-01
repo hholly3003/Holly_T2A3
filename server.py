@@ -2,12 +2,30 @@ import bot
 from photo_handler import check_photo, get_photo_details, download_photo
 import os
 
+
+EXIT_MODE = False
+
+chatbot = bot. TelegramChatbot("config.cfg")
+
 # bot replying to the message 
 def bot_response(message):
     reply = None
     if message is not None:
         reply = f"I have stored message : '{message}' into log file"
     return reply
+
+def check_updates(update_id):
+    parameters_list = chatbot.get_updates(offset = update_id)
+
+    if EXIT_MODE:
+        return 1
+    if not parameters_list:
+        return 0
+    for parameter in parameters_list:
+        update_id = parameter[5]
+        run_command(*parameter)
+        print("This is my update")
+        return update_id 
 
 def run_command(sender, first_name, last_name, text, file_id, update_id, file_size, date):
     global EXIT_MODE
