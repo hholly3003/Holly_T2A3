@@ -26,10 +26,10 @@ class TelegramChatbot:
         response = requests.get(url)
         return response
 
-    def get_content(self, data):
+    def get_content(self, data) -> list:
         parameter_list = []
 
-        for update in json_file["result"]:
+        for update in data["result"]:
             update_id = update["update_id"]
             sender = update["message"]["from"]["id"]    #Sender / Chat ID
             first_name = update["message"]["from"].get("first_name", "")
