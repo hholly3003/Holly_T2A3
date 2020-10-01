@@ -3,18 +3,18 @@ import os
 
 
 # check file if it is a photo
-def check_photo(file_details):
+def check_photo(file_details : dict) -> bool:
     print("Checking photo")
     if file_details.get("file_size") <= 20000000:
         return True
     return False
 
-def get_photo_details(file_details):
+def get_photo_details(file_details: dict) -> str:
     file_path = file_details.get("file_path", "")
     file_name = file_path.split("/")[1]
     return file_path, file_name
 
-def download_photo(url, file_name):
+def download_photo(url, file_name) -> str:
     photo = requests.get(url)   
     if photo.status_code == 200:
         if os.path.isdir("photos"):
