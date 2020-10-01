@@ -35,12 +35,12 @@ class TelegramChatbot:
             first_name = update["message"]["from"].get("first_name", "")
             last_name = update["message"]["from"].get("last_name", "")
             date = update["message"]["date"]
-            file_id = None
-            file_size = None
+            file_id = ""
+            file_size = ""
             try:
                 text = update["message"]["text"]
             except:
-                text = None
+                text = ""
                 file_id = update["message"]["photo"][0].get("file_id", "")
                 file_size = update["message"]["photo"][0].get("file_size", "")
             

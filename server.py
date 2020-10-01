@@ -30,7 +30,7 @@ def check_updates(update_id : int) -> int:
         print("This is my update")
         return update_id
 
-def run_command(chat_id : int, first_name: str, last_name: str, text: str, file_id : str, update_id: int, file_size: int, date):
+def run_command(chat_id : int, first_name: str, last_name: str, text: str, file_id : str, update_id: int, file_size: int, date) -> None:
     global EXIT_MODE
     if text == "/help":
         chatbot.send_message(f"No help today. Sorry, {first_name}", chat_id)
@@ -42,7 +42,7 @@ def run_command(chat_id : int, first_name: str, last_name: str, text: str, file_
         chatbot.send_message("Terminating the bot", chat_id)
         EXIT_MODE = True
 
-    elif file_id is not None:
+    elif not file_id:
         chatbot.display_incoming_message(date, first_name, last_name, text, file_size)
         file_details = chatbot.get_file_details(file_id)
         # Check photo's file size is not more than 20MB

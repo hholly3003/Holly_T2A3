@@ -20,9 +20,12 @@ class TestServerFunctions(unittest.TestCase):
         self.assertTrue(isinstance(result, int), msg = "An unexpected type of updates received")
     
     def test_run_command(self):
-        data = self.bot.get_updates()
-        content = self.bot.get_content(json.loads(data.content))
-        content = content[0]
-
-        run_command(content[0],content[1], content[2],content[3], content[4], content[5], content[6],content[7])
+        try: 
+            run_command(1,"John","Smith","Hello", "", 111111, "", 20200220)
+            run_command(1,"John","Smith","", "AasSaA", 111111, 2500, 20200220)
+        except Exception as error:
+            self.assertTrue(False, error)
         
+
+#         #How to check when it is a file
+
