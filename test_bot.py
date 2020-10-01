@@ -28,8 +28,9 @@ class TestTelegramChatbotClass(unittest.TestCase):
     def test_get_file_details(self):
         data = self.bot.get_updates()
         file_id = self.bot.get_content(json.loads(data.content))[0][4]
-        result = self.bot.get_file_details(file_id)
-        self.assertTrue(isinstance(result, dict),msg = "result is not in dictionary")
+        if file_id is not None:
+            result = self.bot.get_file_details(file_id)
+            self.assertTrue(isinstance(result, dict),msg = "result is not in dictionary")
 
     def test_send_message(self):
         message = "Hello there"

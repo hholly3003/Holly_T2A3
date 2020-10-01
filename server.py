@@ -9,16 +9,16 @@ EXIT_MODE = False
 chatbot = bot. TelegramChatbot("config.cfg")
 
 # bot replying to the message 
-def bot_response(message):
+def bot_response(message: str) -> str:
     reply = None
     if message is not None:
         reply = f"I have stored message : '{message}' into log file"
     return reply
 
-def check_updates(update_id):
+def check_updates(update_id : int) -> int:
     response =  chatbot.get_updates(offset = update_id)
-    json_file = json.loads(response.content)
-    parameters_list = chatbot.get_content(json_file)
+    data = json.loads(response.content)
+    parameters_list = chatbot.get_content(data)
 
     if EXIT_MODE:
         return 1
@@ -30,16 +30,16 @@ def check_updates(update_id):
         print("This is my update")
         return update_id
 
-def run_command(sender, first_name, last_name, text, file_id, update_id, file_size, date):
+def run_command(chat_id : int, first_name: str, last_name: str, text: str, file_id : str, update_id: int, file_size: int, date):
     global EXIT_MODE
     if text == "/help":
-        chatbot.send_message(f"No help today. Sorry, {first_name}", sender)
+        chatbot.send_message(f"No help today. Sorry, {first_name}", chat_id)
         
     elif text == '/start':
-        chatbot.send_message(f"Hello {first_name}! Just send me a text or picture file", sender)
+        chatbot.send_message(f"Hello {first_name}! Just send me a text or picture file", chat_id)
         
     elif text == '/exit':
-        chatbot.send_message("Terminating the bot", sender)
+        chatbot.send_message("Terminating the bot", chat_id)
         EXIT_MODE = True
 
     elif file_id is not None:
@@ -50,10 +50,10 @@ def run_command(sender, first_name, last_name, text, file_id, update_id, file_si
             file_path, file_name = get_photo_details(file_details)
             photo_url = f"https://api.telegram.org/file/bot{chatbot.token}/{file_path}"          
             download_status = download_photo(photo_url,file_name)
-            chatbot.send_message(download_status, sender)
+            chatbot.send_message(download_status, chat_id)
         else:
-            chatbot.send_message("Unable to download, The file size is exceeding 20MB", sender)
+            chatbot.send_message("Unable to download, The file size is exceeding 20MB", chat_id)
     else:
         chatbot.display_incoming_message(date, first_name, last_name, text, file_size)
         reply = bot_response(text)
-        chatbot.send_message(reply,sender)
+        chatbot.send_message(reply,chat_id)
