@@ -15,10 +15,12 @@ class TestTelegramChatbotClass(unittest.TestCase):
             self.assertTrue(False, error)
     
     def test_get_updates(self):
-        result = self.bot.get_updates()
+        """ Test that the response receive is OK"""
+        result = self.bot.get_updates(offset = None)
         self.assertEqual(result.status_code, 200, msg=f"Status code was {result.status_code} not 200. ")
     
     def test_get_content(self):
+        """Test that the data is containing a list with 8 elements"""
         data = self.bot.get_updates()
         content = self.bot.get_content(json.loads(data.content))
         self.assertTrue(isinstance(content, list),msg = "data is not type of List")
@@ -26,6 +28,7 @@ class TestTelegramChatbotClass(unittest.TestCase):
         self.assertIsNotNone(content[0],msg = f"The response is an empty list")
     
     def test_get_file_details(self):
+        """Test to check the file details receive is a dictionary"""
         data = self.bot.get_updates()
         file_id = self.bot.get_content(json.loads(data.content))[0][4]
         if file_id:
@@ -33,6 +36,7 @@ class TestTelegramChatbotClass(unittest.TestCase):
             self.assertTrue(isinstance(result, dict),msg = "result is not in dictionary")
 
     def test_send_message(self):
+        """Test sending message to user and message is as string, chat_id is an int"""
         message = "Hello there"
         data = self.bot.get_updates()
         content = self.bot.get_content(json.loads(data.content))

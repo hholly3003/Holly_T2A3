@@ -3,12 +3,13 @@ from photo_handler import check_photo, get_photo_details
 
 class TestPhotoHandlerFunctions(unittest.TestCase):
     def test_check_photo(self):
+        """Check returning true when file size is less than 20MB"""
         file_details = {"file_size" : 20000000}
-        
         result = check_photo(file_details)
         self.assertTrue(result, msg = "The file size is too big.")
     
     def test_get_photo_details(self):
+        """ check that file_path and file_name is instance of string"""
         file_details = {
             "file_path" : "photos/file_10.jpg",
             "file_size" : 1000000 }
