@@ -61,7 +61,13 @@ The bot also able to send a response message back to the user by utilising the s
 **Control Flow Diagram**
 
 ## Project Implementation
-** Trello Board
+**Trello**
+I used Trello as my project management tools. Trello allows me to create job board and enable me to add multiple list to help me keep tracks on the items that i need to work on and what is its status. I have sorted my lists into Backlog, Doing, Testing and Done.
 
+In my code implementation, I created **TelegramChatbot Class** and define five methods for a  Telegram bot abilities, which are *read_token_from_config, get_updates, get_content, get_file_details, and send_message*
+
+I have also created server.py that basically tell what the application should do when message received. There are three functions available, which are *bot_response, check_updates, and run_command*
+
+Lastly, the photo_handler.py is use to handle incoming message that is a photo file. There are there functions inside this file. *check_photo, get_photo_details, and download_photo*
 ## Testing
 The application is using [CI/CD pipeline](https://github.com/hholly3003/Holly_T2A3/actions) that run automated testing everytime pushing new code to the master branch and deploy it into an EC2 instance on AWS services.

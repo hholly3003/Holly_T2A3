@@ -12,7 +12,7 @@ chatbot = bot. TelegramChatbot("config.cfg")
 def bot_response(message: str) -> str:
     reply = None
     if message is not None:
-        reply = f"I have stored message : '{message}' into log file"
+        reply = f"I have received your message : '{message}'"
     return reply
 
 def check_updates(update_id : int) -> int:
