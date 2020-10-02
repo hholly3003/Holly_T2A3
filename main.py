@@ -4,7 +4,7 @@ import sys
 
 
 chatbot = bot.TelegramChatbot("config.cfg")
-print("Chatbot is running . . . .")   
+print("Chatbot is running . . . .")
 update_id = None
 EXIT_MODE = False
 

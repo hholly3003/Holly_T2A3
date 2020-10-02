@@ -67,8 +67,8 @@ class TelegramChatbot:
     # Print all incoming message
     def display_incoming_message(self, date, first_name, last_name, text, file_size):
         print("[<<<] Message Received %s" % datetime.fromtimestamp(date).strftime("%d-%m-%Y %H:%M:%S"))
-        
-        #Check if the message is a text or photo
+      
+        # Check if the message is a text or photo
         if not file_size:
             content = text
             print(f"\tText: {content}")
@@ -78,5 +78,3 @@ class TelegramChatbot:
 
         print(f"\tFrom: {first_name} {last_name}")
         print("-" * os.get_terminal_size().columns)
-    
-    
