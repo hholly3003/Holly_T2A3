@@ -1,5 +1,6 @@
 import requests
 import os
+from typing import Tuple
 
 
 # check file if it is a photo
@@ -8,7 +9,7 @@ def check_photo(file_details : dict) -> bool:
         return True
     return False
 
-def get_photo_details(file_details: dict) -> str:
+def get_photo_details(file_details: dict) -> Tuple[str, str]:
     file_path = file_details.get("file_path", "")
     file_name = file_path.split("/")[1]
     return file_path, file_name

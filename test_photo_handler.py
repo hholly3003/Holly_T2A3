@@ -1,5 +1,5 @@
 import unittest
-from photo_handler import *
+from photo_handler import check_photo, get_photo_details
 
 class TestPhotoHandlerFunctions(unittest.TestCase):
     def test_check_photo(self):

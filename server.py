@@ -27,7 +27,6 @@ def check_updates(update_id : int) -> int:
     for parameter in parameters_list:
         update_id = parameter[5]
         run_command(*parameter)
-        print("This is my update")
         return update_id
 
 def run_command(chat_id : int, first_name: str, last_name: str, text: str, file_id : str,

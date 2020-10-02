@@ -3,6 +3,7 @@ import json
 import configparser
 import os
 from datetime import datetime
+from requests.models import Response
 
 class TelegramChatbot:
     def __init__(self,config):
@@ -17,7 +18,7 @@ class TelegramChatbot:
         return parser.get("creds","token")
     
     #getting all updates or messages that is sent to the bot
-    def get_updates(self, offset = None):
+    def get_updates(self, offset = None) -> Response:
         #use the getUpdates method to get all data and set a timeout parameter of 60s
         url = self.base + "getUpdates?timeout=60"
         # if the offset parameter is provided, will add the offset parameter in the url

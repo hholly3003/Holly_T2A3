@@ -12,13 +12,17 @@ class TestServerFunctions(unittest.TestCase):
         expected_message = "I have stored message : 'Hello' into log file"
         self.assertEqual(bot_reply,expected_message,msg = f"The expected message is {expected_message}")
 
-    def test_check_updates(self):
-        data = self.bot.get_updates()
-        content = self.bot.get_content(json.loads(data.content))
-        update_id = content[0][5]
+    """
+    Unable to do the automated testing below because unable to mock the input
+    It need to wait user input via Telegram Chat
+    """
+    # def test_check_updates(self):
+    #     data = self.bot.get_updates()
+    #     content = self.bot.get_content(json.loads(data.content))
+    #     update_id = content[0][5]
         
-        result = check_updates(update_id)
-        self.assertTrue(isinstance(result, int), msg = "An unexpected type of updates received")
+    #     result = check_updates(update_id)
+    #     self.assertTrue(isinstance(result, int), msg = "An unexpected type of updates received")
     
     # def test_run_command(self):
     #     data = self.bot.get_updates()
