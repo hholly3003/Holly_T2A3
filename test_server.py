@@ -1,5 +1,6 @@
 import unittest
-from server import *
+import json
+from server import bot_response, check_updates
 from bot import TelegramChatbot
 
 class TestServerFunctions(unittest.TestCase):
