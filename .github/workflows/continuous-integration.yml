@@ -20,3 +20,19 @@ jobs:
       - name: Run Tests
         run: |
           python -m unittest discover -v
+  deployment:
+    needs: test_suite
+    runs-on: ubuntu-latest
+    steps:
+      - name: New clone & repo install
+        uses: appleboy/ssh-action@master
+        with:
+          host: 54.159.36.41
+          username: github-actions
+          key: {{ secrets.$SSH_KEY }}
+          port: 22
+          script: |
+            rm -rf Holly_T2A3
+            git clone https://github.com/hholly3003/Holly_T2A3.git
+            python3.8 -m venv /home/github-actions/Holly_T2A3/venv
+            /home/github-actions/Holly_T2A3/venv/bin/pip install -r requirements.txt
