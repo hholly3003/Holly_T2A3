@@ -1,6 +1,7 @@
 import bot
 from photo_handler import check_photo, get_photo_details, download_photo
 import json
+import sys
 
 
 EXIT_MODE = False
@@ -70,16 +71,24 @@ def run_command(chat_id: int, first_name: str, last_name: str,
     :type date: [int]
     """
     global EXIT_MODE
+
     if text == "/help":
-        chatbot.send_message(f"No help today. Sorry, {first_name}", chat_id)
+        message = """
+        This are the bot commands available:
+        "/help" - listing out all the command available
+        "/start" - Welcome greeting
+        "/exit" - Stop the application
+        """
+        chatbot.send_message(message, chat_id)
 
     elif text == '/start':
         chatbot.send_message(f"Hello {first_name}! " +
-                             "Just send me a text or picture file",
+                             "I am only accepting text or picture file",
                              chat_id)
 
     elif text == '/exit':
-        chatbot.send_message("Terminating the bot", chat_id)
+        print("Terminating the bot . . .")
+        chatbot.send_message("Terminating the bot . . .", chat_id)
         EXIT_MODE = True
 
     elif file_id:

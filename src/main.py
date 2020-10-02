@@ -13,6 +13,7 @@ while True:
         if not EXIT_MODE:
             update_id = check_updates(update_id)
         else:
+            # check_updates(update_id)
             sys.exit()
     except KeyboardInterrupt:
         print('Interrupt by user..')
