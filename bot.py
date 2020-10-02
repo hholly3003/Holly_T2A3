@@ -68,7 +68,7 @@ class TelegramChatbot:
         print("[<<<] Message Received %s" % datetime.fromtimestamp(date).strftime("%d-%m-%Y %H:%M:%S"))
         
         #Check if the message is a text or photo
-        if file_size == None:
+        if not file_size:
             content = text
             print(f"\tText: {content}")
         else:

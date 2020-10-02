@@ -4,7 +4,6 @@ import os
 
 # check file if it is a photo
 def check_photo(file_details : dict) -> bool:
-    print("Checking photo")
     if file_details.get("file_size") <= 20000000:
         return True
     return False
