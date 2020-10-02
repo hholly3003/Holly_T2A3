@@ -35,4 +35,4 @@ jobs:
             rm -rf Holly_T2A3
             git clone https://github.com/hholly3003/Holly_T2A3.git
             python3.8 -m venv /home/github-actions/Holly_T2A3/venv
-            /home/github-actions/Holly_T2A3/venv/bin/pip install -r requirements.txt
+            /home/github-actions/Holly_T2A3/venv/bin/pip install -r /home/github-actions/Holly_T2A3/requirements.txt
