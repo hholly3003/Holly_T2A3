@@ -9,7 +9,7 @@ class TestServerFunctions(unittest.TestCase):
 
     def test_bot_response(self):
         bot_reply = bot_response("Hello")
-        expected_message = "I have stored message : 'Hello' into log file"
+        expected_message = "I have received your message : 'Hello'"
         self.assertEqual(bot_reply,expected_message,msg = f"The expected message is {expected_message}")
 
     """
