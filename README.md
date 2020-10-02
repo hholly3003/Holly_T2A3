@@ -6,7 +6,9 @@
     - You will need to have a Telegram account. Open the application and search for @botfather
     - Create new bot by type in  **/newbot** and setup the bot name and username
     - You will see a new API token is generated
-    - Open config.cfg file and replace [TOKEN_KEY] with the API token  
+    - Create config.cfg file under src directory
+        >[creds]
+        >token = [TOKEN_KEY]  
 * Create virtual environment and activate
     ``` 
     python3 -m venv venv
@@ -18,6 +20,7 @@
     ```
 * Run
     ```
+    Navigate to directory of the main.py file that should be available under *src* folder.
     python main.py
     ```
 * Dependencies available on *requirements.txt*
