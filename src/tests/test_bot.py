@@ -14,10 +14,14 @@ class TestTelegramChatbotClass(unittest.TestCase):
         except Exception as error:
             self.assertTrue(False, error)
     
-    def test_get_updates(self):
-        """ Test that the response receive is OK"""
-        result = self.bot.get_updates(offset = None)
-        self.assertEqual(result.status_code, 200, msg=f"Status code was {result.status_code} not 200. ")
+    """
+    Unable to do the automated testing below because unable to mock the input
+    It need to wait user input via Telegram Chat
+    """
+    # def test_get_updates(self):
+    #     """ Test that the response receive is OK"""
+    #     result = self.bot.get_updates(offset = None)
+    #     self.assertEqual(result.status_code, 200, msg=f"Status code was {result.status_code} not 200. ")
     
     def test_get_content(self):
         """Test that the data is containing a list with 8 elements"""
